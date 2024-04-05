@@ -40,17 +40,17 @@ function SaveImageWhatsApp(image, number) {
         .then((response) => {
             const url = response.url;
             console.log(url);
-
+            const fileName = `/var/data/${image.id}.jpg`;
             config.url = url;
             config.responseType = 'arraybuffer';
             axios
                 .request(config)
                 .then((response) => {
-                    fs.writeFile(`${image.id}.jpg`, response.data, (err) => {
+                    fs.writeFile(fileName, response.data, (err) => {
                         if (err) {
                             console.log(err);
                         }
-                        console.log(`${image.id}.jpg saved for number <${number}>`);
+                        console.log(`${fileName} saved for number <${number}>`);
                     });
                 })
                 .catch((error) => {
