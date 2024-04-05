@@ -29,6 +29,9 @@ const ReceivedMessage = (req, res) => {
             console.log(messageObject);
             var messages = messageObject[0];
             var number = messages["from"];
+            if (number.startswith("5583")) {
+                number = number.replace("5583", "55839");
+            }
             var type = messages["type"];
             if (type === 'image') {
                 processMessage.Process('', number);
