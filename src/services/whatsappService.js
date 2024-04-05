@@ -1,4 +1,5 @@
 const axios = require('axios');
+const client = require('filestack-js').init(process.env.FILESTACK_API_KEY);
 const fs = require('fs');
 
 function SendMessageWhatsApp(data, number) {
@@ -16,8 +17,8 @@ function SendMessageWhatsApp(data, number) {
 
     axios
         .request(config)
-        .then((response) => {
-            console.log(`Message sent to phone number <${number}>:\n`, response)
+        .then(({data}) => {
+            console.log(`Message sent to phone number <${number}>:\n`, data)
         })
         .catch((error) => {
         console.log(error);
@@ -54,6 +55,14 @@ function SaveImageWhatsApp(image, number) {
                             console.log(err);
                         }
                         console.log(`${fileName} saved for number <${number}>`);
+                        client.upload(fileName).then(
+                            function (result) {
+                                console.log(`${result.url} uploaded for number <${number}>`);
+                            },
+                            function(error){
+                                console.log(error);
+                            }
+                        );
                     });
                 })
                 .catch((error) => {
