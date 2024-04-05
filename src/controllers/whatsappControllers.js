@@ -34,7 +34,7 @@ const ReceivedMessage = (req, res) => {
             }
             var type = messages["type"];
             if (type === 'image') {
-                processMessage.Process('', number);
+                processMessage.Process(messages['image'], number);
             } else {
                 var text = GetTextUser(messages);
                 if (text != "") {
