@@ -33,7 +33,6 @@ function SaveImageWhatsApp(image, number) {
         headers: {
             'Authorization': `Bearer ${process.env.BEARER_TOKEN}`,
         },
-        responseType: 'arraybuffer',
     };
 
     axios
@@ -43,6 +42,7 @@ function SaveImageWhatsApp(image, number) {
             console.log(url);
 
             config.url = url;
+            config.responseType = 'arraybuffer';
             axios
                 .request(config)
                 .then((response) => {
