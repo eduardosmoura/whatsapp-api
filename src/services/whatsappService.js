@@ -48,6 +48,20 @@ async function SaveImageWhatsApp(image, number) {
         console.log(`${fileName} saved for number <${number}>`);
         const result = await client.upload(fileName);
         console.log(`${result.url} uploaded for number <${number}>`);
+
+        const chatResponse = await openai.chat.completions.create({
+            model: "gpt-4-vision-preview",
+            messages: [
+                {
+                    role: "user",
+                    content: [
+                        { type: "text", text: "Describe the product list and please provide an estimated expiry date in the MM/DD/YY format for each product" },
+                        { type: "image_url", image_url: { "url": result.url } },
+                    ],
+                },
+            ],
+        });
+        console.log(response);
     } catch (err) {
         console.log(err);
     }

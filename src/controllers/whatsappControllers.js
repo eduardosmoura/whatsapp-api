@@ -26,7 +26,6 @@ const ReceivedMessage = async (req, res) => {
         var messageObject = value["messages"];
 
         if(typeof messageObject != "undefined"){
-            console.log(messageObject);
             var messages = messageObject[0];
             var number = messages["from"];
             if (number.includes("5583")) {
