@@ -29,9 +29,14 @@ const ReceivedMessage = (req, res) => {
             console.log(messageObject);
             var messages = messageObject[0];
             var number = messages["from"];
-            var text = GetTextUser(messages);
-            if(text != ""){
-                processMessage.Process(text, number);
+            var type = messages["type"];
+            if (type === 'image') {
+                processMessage.Process('', number);
+            } else {
+                var text = GetTextUser(messages);
+                if (text != "") {
+                    processMessage.Process(text, number);
+                }
             }
         }
         res.send("EVENT_RECEIVED");
