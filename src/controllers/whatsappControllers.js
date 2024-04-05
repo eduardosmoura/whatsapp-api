@@ -18,7 +18,7 @@ const VerifyToken = (req, res) => {
     }
 }
 
-const ReceivedMessage = (req, res) => {
+const ReceivedMessage = async (req, res) => {
     try{
         var entry = (req.body["entry"])[0];
         var changes = (entry["changes"])[0];
@@ -34,7 +34,7 @@ const ReceivedMessage = (req, res) => {
             }
             var type = messages["type"];
             if (type === 'image') {
-                processMessage.Process(messages['image'], number);
+                await processMessage.Process(messages['image'], number);
             } else {
                 var text = GetTextUser(messages);
                 if (text != "") {
