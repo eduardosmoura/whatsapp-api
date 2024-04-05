@@ -17,8 +17,8 @@ function SendMessageWhatsApp(data, number) {
 
     axios
         .request(config)
-        .then(({data}) => {
-            console.log(`Message sent to phone number <${number}>:\n`, data)
+        .then(() => {
+            console.log(`Message sent to phone number <${number}>`)
         })
         .catch((error) => {
         console.log(error);
@@ -26,8 +26,6 @@ function SendMessageWhatsApp(data, number) {
 }
 
 function SaveImageWhatsApp(image, number) {
-
-    console.log(image);
 
     let config = {
         method: 'get',
@@ -41,9 +39,7 @@ function SaveImageWhatsApp(image, number) {
     axios
         .request(config)
         .then(({ data }) => {
-            console.log(data);
             const url = data.url;
-            console.log(url);
             const fileName = `/var/data/${image.id}.jpg`;
             config.url = url;
             config.responseType = 'arraybuffer';
