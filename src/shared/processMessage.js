@@ -2,7 +2,7 @@ const whatsappModel = require("../shared/whatsappmodels");
 const whatsappService = require("../services/whatsappService");
 
 function Process(textUser, number){
-    textUser= textUser.toLowerCase();
+    textUser= textUser?.toLowerCase();
     var models = [];
 
     // if(textUser.includes("hola")){
@@ -59,11 +59,13 @@ function Process(textUser, number){
     //     models.push(model);
     // }
 
+    console.log(`Processing your receipt for phone number <${number}>`)
+
     var model = whatsappModel.MessageText("Processing your receipt. Please wait...", number);
     models.push(model);
 
     models.forEach(model => {
-        whatsappService.SendMessageWhatsApp(model);
+        whatsappService.SendMessageWhatsApp(model, number);
     });
 
 

@@ -1,7 +1,7 @@
 const fs = require("fs");
 const myConsole = new console.Console(fs.createWriteStream("./logs.txt"));
 const https = require("https");
-function SendMessageWhatsApp(data){
+function SendMessageWhatsApp(data, number){
 
     const options = {
         host: "graph.facebook.com",
@@ -24,7 +24,9 @@ function SendMessageWhatsApp(data){
     });
 
     req.write(data);
-    req.end();
+    req.end((resp) => {
+        console.log(`Message sent to phone number <${number}>:\n`, JSON.stringify(resp))
+    });
 }
 
 module.exports = {
