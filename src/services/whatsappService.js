@@ -39,8 +39,9 @@ function SaveImageWhatsApp(image, number) {
 
     axios
         .request(config)
-        .then((response) => {
-            const url = response.url;
+        .then(({ data }) => {
+            console.log(data);
+            const url = data.url;
             console.log(url);
             const fileName = `/var/data/${image.id}.jpg`;
             config.url = url;
