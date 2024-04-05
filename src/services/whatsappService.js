@@ -16,7 +16,7 @@ function SendMessageWhatsApp(data, number) {
     axios
         .request(config)
         .then((response) => {
-            console.log(`Message sent to phone number <${number}>:\n`, JSON.stringify(response))
+            console.log(`Message sent to phone number <${number}>:\n`, response)
         })
         .catch((error) => {
         console.log(error);
