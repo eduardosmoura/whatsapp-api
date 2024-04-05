@@ -26,6 +26,8 @@ function SendMessageWhatsApp(data, number) {
 
 function SaveImageWhatsApp(image, number) {
 
+    console.log(image);
+
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
