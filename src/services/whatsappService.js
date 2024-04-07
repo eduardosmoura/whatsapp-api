@@ -71,8 +71,16 @@ async function DescribeImageWhatsApp(imageUrl, number) {
         const { content } = chatResponse?.choices?.[0]?.message
         console.log(`${imageUrl} described for number <${number}>:\n` + content);
         const data = content.split('.');
-        console.log(data);
-        const filtered = data.filter((message) => !message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes(`however`));
+        const filtered = [];
+        data.forEach(line => {
+            if (line.trim().length > 0) {
+                line.split('\n').forEach(message => {
+                    if (!message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes(`however`)) {
+                        filtered.push(message)
+                    }
+                })
+            }
+        });
         console.log(filtered);
         return filtered.join('\n');
     } catch (err) {
