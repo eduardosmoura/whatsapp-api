@@ -75,7 +75,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
         data.forEach(line => {
             if (line.trim().length > 0) {
                 line.split('\n').forEach(message => {
-                    if (!message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes(`however`)) {
+                    if (!message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes('however') && !message.toLowerCase().includes(`i can't`) && !message.toLowerCase().includes('i cannot')) {
                         filtered.push(message.replaceAll('2023', '2024'))
                     }
                 })
