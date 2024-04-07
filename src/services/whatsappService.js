@@ -61,7 +61,7 @@ async function SaveImageWhatsApp(image, number) {
                 },
             ],
         });
-        console.log(response);
+        console.log(chatResponse);
     } catch (err) {
         console.log(err);
     }
