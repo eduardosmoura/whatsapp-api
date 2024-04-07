@@ -72,7 +72,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
         const { content } = chatResponse?.choices?.[0]?.message
         console.log(`${imageUrl} described for number <${number}>:\n` + content);
         let data = content.replaceAll('e.g., ', '');
-        for (const i = 0; i < 30; i++) {
+        for (let i = 1; i <= 30; i++) {
             data = data.replaceAll(`${i}. `, ` * ${i}) `);
         }
         const filtered = [];
