@@ -63,10 +63,11 @@ async function DescribeImageWhatsApp(imageUrl, number) {
                     role: "user",
                     content: [
                         { type: "text", text: "Describe the product list containing an estimated expiry date in the MM/DD/YYYY format for each product, assuming they were bought today. Provide the expire date in the future please." },
-                        { type: "image_url", image_url: { "url": imageUrl } },
+                        { type: "image_url", image_url: { "url": imageUrl, "detail": "high" } },
                     ],
                 },
             ],
+            max_tokens:300,
         });
         const { content } = chatResponse?.choices?.[0]?.message
         console.log(`${imageUrl} described for number <${number}>:\n` + content);
