@@ -62,7 +62,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
                 {
                     role: "user",
                     content: [
-                        { type: "text", text: "Describe the product list and PLEASE provide an estimated expiry date in the MM/DD/YY format for each product, assuming they were bought today." },
+                        { type: "text", text: "Describe the product list and PLEASE provide an estimated expiry date in the \"MM/DD/YY\" format for each product, assuming they were bought today. PLEASE respect the \"MM/DD/YY\" format." },
                         { type: "image_url", image_url: { "url": imageUrl } },
                     ],
                 },
@@ -76,7 +76,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
             if (line.trim().length > 0) {
                 line.split('\n').forEach(message => {
                     if (!message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes(`however`)) {
-                        filtered.push(message)
+                        filtered.push(message.replaceAll('2023', '2024'))
                     }
                 })
             }
