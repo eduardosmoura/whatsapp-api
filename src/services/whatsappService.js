@@ -48,7 +48,14 @@ async function SaveImageWhatsApp(image, number) {
         console.log(`${fileName} saved for number <${number}>`);
         const result = await client.upload(fileName);
         console.log(`${result.url} uploaded for number <${number}>`);
+        return result.url;
+    } catch (err) {
+        console.log(err);
+    }
+}
 
+async function DescribeImageWhatsApp(imageUrl, number) {
+    try {
         const chatResponse = await openai.chat.completions.create({
             model: "gpt-4-vision-preview",
             messages: [
@@ -56,19 +63,21 @@ async function SaveImageWhatsApp(image, number) {
                     role: "user",
                     content: [
                         { type: "text", text: "Describe the product list and PLEASE provide an estimated expiry date in the MM/DD/YY format for each product assuming they were bought today" },
-                        { type: "image_url", image_url: { "url": result.url } },
+                        { type: "image_url", image_url: { "url": imageUrl } },
                     ],
                 },
             ],
         });
         const { content } = chatResponse?.choices?.[0]?.message
-        console.log(content);
+        console.log(`${result.url} described for number <${number}>:\n`, content);
+        const data = content.split('.');
+        return data.filter((message) => !message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes(`however`)).join('\n');
     } catch (err) {
         console.log(err);
     }
 }
-
 module.exports = {
     SendMessageWhatsApp,
-    SaveImageWhatsApp
+    SaveImageWhatsApp,
+    DescribeImageWhatsApp
 };
