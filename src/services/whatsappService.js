@@ -57,12 +57,12 @@ async function SaveImageWhatsApp(image, number) {
 async function DescribeImageWhatsApp(imageUrl, number) {
     try {
         const chatResponse = await openai.chat.completions.create({
-            model: "gpt-4-vision-preview",
+            model: "gpt-4",
             messages: [
                 {
                     role: "user",
                     content: [
-                        { type: "text", text: "Describe the product list and PLEASE provide an estimated expiry date in the future format for each product, assuming they were bought today. PLEASE respect the \"MM/DD/YY\" format for the expiry date." },
+                        { type: "text", text: "Describe the product list and PLEASE provide an estimated FUTURE expiry date for each product, assuming they were bought today. PLEASE respect the \"MM/DD/YY\" format for the expiry date." },
                         { type: "image_url", image_url: { "url": imageUrl } },
                     ],
                 },
