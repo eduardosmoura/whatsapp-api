@@ -56,13 +56,20 @@ async function SaveImageWhatsApp(image, number) {
 
 async function DescribeImageWhatsApp(imageUrl, number) {
     try {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // Months start at 0!
+        let dd = today.getDate();
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
+        const formattedToday = dd + '/' + mm + '/' + yyyy;
         const chatResponse = await openai.chat.completions.create({
             model: "gpt-4-vision-preview",
             messages: [
                 {
                     role: "user",
                     content: [
-                        { type: "text", text: "Describe the product list containing a general estimated expiry date for each product, assuming they were bought today. Please provide the expire date respecting the MM/DD/YY format." },
+                        { type: "text", text: `Describe the product list containing a general expiry date for each product, assuming they were bought at ${formattedToday}. Please provide the expire date respecting the MM/DD/YYYY format.` },
                         { type: "image_url", image_url: { "url": imageUrl, "detail": "high" } },
                     ],
                 },
@@ -73,7 +80,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
         console.log(`${imageUrl} described for number <${number}>:\n` + content);
         let data = content.replaceAll('e.g., ', '');
         for (let i = 1; i <= 30; i++) {
-            data = data.replaceAll(`${i}. `, `\n\n*${i})* `);
+            data = data.replaceAll(`${i}. `, `*${i})* `);
         }
         const filtered = [];
         data.split('.').forEach(line => {
