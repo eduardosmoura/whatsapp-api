@@ -23,7 +23,7 @@ async function SendMessageWhatsApp(data, number) {
         await axios.request(config);
         console.log(`Message sent to phone number <${number}>`)
     } catch (err) {
-        console.log(error);
+        console.log(err);
     }
 }
 
