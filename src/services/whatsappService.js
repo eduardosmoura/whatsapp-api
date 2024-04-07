@@ -62,7 +62,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
         let dd = today.getDate();
         if (dd < 10) dd = '0' + dd;
         if (mm < 10) mm = '0' + mm;
-        const formattedToday = dd + '/' + mm + '/' + yyyy;
+        const formattedToday = mm + '/' + dd + '/' + yyyy;
         const chatResponse = await openai.chat.completions.create({
             model: "gpt-4-vision-preview",
             messages: [
@@ -83,12 +83,14 @@ async function DescribeImageWhatsApp(imageUrl, number) {
             data = data.replaceAll(`${i}. `, `*${i})* `);
         }
         const filtered = [];
-        data.split('.').forEach(line => {
-            line.split('\n').forEach(message => {
-                if (!message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes('however') && !message.toLowerCase().includes(`i can't`) && !message.toLowerCase().includes('i cannot')) {
-                    filtered.push(message);
+        data.split('\n').forEach(line => {
+            if (line.trim().length > 0) {
+                if (!line.toLowerCase().includes(`i'm sorry`) && !line.toLowerCase().includes('however') && !line.toLowerCase().includes(`i can't`) && !line.toLowerCase().includes('i cannot')) {
+                    filtered.push(line);
                 }
-            })
+            } else {
+                filtered.push(line);
+            }
         });
         console.log(filtered);
         return filtered.join('\n');
