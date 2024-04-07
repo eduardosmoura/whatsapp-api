@@ -62,7 +62,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
                 {
                     role: "user",
                     content: [
-                        { type: "text", text: "Describe the product list containing an estimated expiry date in the MM/DD/YY format for each product, assuming they were bought today. Provide the expire date in the future please." },
+                        { type: "text", text: "Describe the product list containing an estimated expiry date for each product, assuming they were bought today. Provide the FUTURE expire date in the MM/DD/YY format PLEASE." },
                         { type: "image_url", image_url: { "url": imageUrl, "detail": "high" } },
                     ],
                 },
@@ -71,9 +71,12 @@ async function DescribeImageWhatsApp(imageUrl, number) {
         });
         const { content } = chatResponse?.choices?.[0]?.message
         console.log(`${imageUrl} described for number <${number}>:\n` + content);
-        const data = content.split('.');
+        const data = content.replaceAll('e.g., ', '');
+        for (const i = 0; i < 30; i++) {
+            data = data.replaceAll(`${i}. `, ` * ${i}) `);
+        }
         const filtered = [];
-        data.forEach(line => {
+        data.split('.').forEach(line => {
             if (line.trim().length > 0) {
                 line.split('\n').forEach(message => {
                     if (message.trim().length > 0) {
