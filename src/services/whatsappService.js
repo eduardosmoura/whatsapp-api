@@ -57,7 +57,7 @@ async function SaveImageWhatsApp(image, number) {
 async function DescribeImageWhatsApp(imageUrl, number) {
     try {
         const chatResponse = await openai.chat.completions.create({
-            model: "gpt-4",
+            model: "gpt-4-vision-preview",
             messages: [
                 {
                     role: "user",
