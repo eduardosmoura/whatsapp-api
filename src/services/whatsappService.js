@@ -82,7 +82,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
                     if (message.trim().length > 0) {
                         if (!message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes('however') && !message.toLowerCase().includes(`i can't`) && !message.toLowerCase().includes('i cannot')) {
                             const resp = message.replaceAll('23', '24')
-                            filtered.push(resp);
+                            filtered.push(resp.trim());
                         }
                     }
                 })
