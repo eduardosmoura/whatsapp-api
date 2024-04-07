@@ -55,13 +55,14 @@ async function SaveImageWhatsApp(image, number) {
                 {
                     role: "user",
                     content: [
-                        { type: "text", text: "Describe the product list and please provide an estimated expiry date in the MM/DD/YY format for each product" },
+                        { type: "text", text: "Describe the product list and PLEASE provide an estimated expiry date in the MM/DD/YY format for each product assuming they were bought today" },
                         { type: "image_url", image_url: { "url": result.url } },
                     ],
                 },
             ],
         });
-        console.log(chatResponse?.choices?.[0]?.message);
+        const { content } = chatResponse?.choices?.[0]?.message
+        console.log(content);
     } catch (err) {
         console.log(err);
     }
