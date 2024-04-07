@@ -62,7 +62,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
                 {
                     role: "user",
                     content: [
-                        { type: "text", text: "Describe the product list, and provide a future expiry date in the MM/DD/YY format for each product, assuming they were bought today." },
+                        { type: "text", text: "Describe the product list containing an estimated expiry date in the MM/DD/YYYY format for each product, assuming they were bought today. Provide the expire date in the future please." },
                         { type: "image_url", image_url: { "url": imageUrl } },
                     ],
                 },
