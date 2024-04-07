@@ -62,7 +62,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
                 {
                     role: "user",
                     content: [
-                        { type: "text", text: "Describe the product list containing an estimated expiry date for each product, assuming they were bought today. Please provide the expire date respecting the MM/DD/YY format." },
+                        { type: "text", text: "Describe the product list containing a general estimated expiry date for each product, assuming they were bought today. Please provide the expire date respecting the MM/DD/YY format." },
                         { type: "image_url", image_url: { "url": imageUrl, "detail": "high" } },
                     ],
                 },
@@ -71,22 +71,17 @@ async function DescribeImageWhatsApp(imageUrl, number) {
         });
         const { content } = chatResponse?.choices?.[0]?.message
         console.log(`${imageUrl} described for number <${number}>:\n` + content);
+        let data = content.replaceAll('e.g., ', '');
+        for (let i = 1; i <= 30; i++) {
+            data = data.replaceAll(`${i}. `, `\n\n*${i})* `);
+        }
         const filtered = [];
-        const data = content.replaceAll('e.g., ', '').split('.');
-        data.forEach(line => {
-            if (line.trim().length > 0) {
-                line.split('\n').forEach(message => {
-                    if (message.trim().length > 0) {
-                        if (!message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes('however') && !message.toLowerCase().includes(`i can't`) && !message.toLowerCase().includes('i cannot')) {
-                            let resp = message.replaceAll('23', '24');
-                            for (let i = 1; i <= 30; i++) {
-                                resp = resp.replaceAll(`${i}. `, `\n*${i})* `);
-                            }
-                            filtered.push(resp);
-                        }
-                    }
-                })
-            }
+        data.split('.').forEach(line => {
+            line.split('\n').forEach(message => {
+                if (!message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes('however') && !message.toLowerCase().includes(`i can't`) && !message.toLowerCase().includes('i cannot')) {
+                    filtered.push(message);
+                }
+            })
         });
         console.log(filtered);
         return filtered.join('\n');
