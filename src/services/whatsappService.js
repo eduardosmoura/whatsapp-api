@@ -62,7 +62,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
                 {
                     role: "user",
                     content: [
-                        { type: "text", text: "Describe the product list, and provide a future expiry date in the MM/DD/YYYY format for each product, assuming they were bought today." },
+                        { type: "text", text: "Describe the product list, and provide a future expiry date in the MM/DD/YY format for each product, assuming they were bought today." },
                         { type: "image_url", image_url: { "url": imageUrl } },
                     ],
                 },
@@ -75,9 +75,9 @@ async function DescribeImageWhatsApp(imageUrl, number) {
         data.forEach(line => {
             if (line.trim().length > 0) {
                 line.split('\n').forEach(message => {
-                    if (!message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes('however') && !message.toLowerCase().includes(`i can't`) && !message.toLowerCase().includes('i cannot')) {
-                        const resp = message.replaceAll('2023', '2024').replaceAll('23', '24')
-                        if (resp.trim().length > 0) {
+                    if (message.trim().length > 0) {
+                        if (!message.toLowerCase().includes(`i'm sorry`) && !message.toLowerCase().includes('however') && !message.toLowerCase().includes(`i can't`) && !message.toLowerCase().includes('i cannot')) {
+                            const resp = message.replaceAll('2023', '2024').replaceAll('23', '24').replaceAll('Future Expiry Date', 'Estimated Expiry Date').split('/2024 (')[0].replaceAll('(', '')
                             filtered.push(resp);
                         }
                     }
