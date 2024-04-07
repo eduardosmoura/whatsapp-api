@@ -50,7 +50,7 @@ async function SaveImageWhatsApp(image, number) {
         console.log(`${result.url} uploaded for number <${number}>`);
 
         const chatResponse = await openai.chat.completions.create({
-            model: "gpt-4-turbo-preview",
+            model: "gpt-4-vision-preview",
             messages: [
                 {
                     role: "user",
