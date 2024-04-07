@@ -67,7 +67,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
                     ],
                 },
             ],
-            max_tokens:300,
+            max_tokens: 500,
         });
         const { content } = chatResponse?.choices?.[0]?.message
         console.log(`${imageUrl} described for number <${number}>:\n` + content);
