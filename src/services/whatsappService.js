@@ -93,7 +93,7 @@ async function DescribeImageWhatsApp(imageUrl, number) {
             }
         });
         console.log(filtered);
-        return filtered.join('\n');
+        return [content, filtered.join('\n')];
     } catch (err) {
         console.log(err);
     }
