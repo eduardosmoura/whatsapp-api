@@ -21,7 +21,7 @@ async function Process(image, number) {
         const [raw, description] = await whatsappService.DescribeImageWhatsApp(imageUrl, number);
         const message = whatsappModel.MessageText(description.trim().length > 0 ? description : 'Could not process your receipt. Please try uploading a better quality image.', number);
         await whatsappService.SendMessageWhatsApp(message, number);
-        await db.collection('receipts').insertOne({ number, imageUrl, raw, description });
+        await db.collection('receipts').insertOne({ number, imageUrl, raw, description, createdAt: new Date()});
         console.log(`Processing your receipt for phone number <${number}> - END`)
     } catch (err) {
         console.log(err);
